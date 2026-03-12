@@ -8,6 +8,7 @@ import base64
 import sqlite3
 from datetime import datetime
 import asyncio
+from utils.discord_notify import notify_task_completed, notify_task_failed
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'tasks.db')
 
@@ -128,6 +129,10 @@ async def run_task(task_id):
             
             update_task(task_id, 'completed', result={'actions': results})
             
+            # Discord notification
+            duration = (datetime.utcnow() - datetime.fromisoformat(task_data['created_at'])).total_seconds() if task_data.get('created_at') else 0
+            notify_task_completed(task_id, task_type, duration)
+            
             # Send webhook notification
             if webhook:
                 import requests
@@ -142,6 +147,7 @@ async def run_task(task_id):
     
     except Exception as e:
         update_task(task_id, 'failed', error=str(e))
+        notify_task_failed(task_id, str(e))
 
 
 def run_task_sync(task_id):

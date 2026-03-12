@@ -44,4 +44,9 @@ app = create_app()
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5557))
+    
+    # Send startup notification to Discord
+    from utils.discord_notify import notify_startup
+    notify_startup(port)
+    
     app.run(host='0.0.0.0', port=port, debug=True)
