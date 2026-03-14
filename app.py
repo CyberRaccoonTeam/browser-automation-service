@@ -6,7 +6,7 @@ import os
 import asyncio
 import uuid
 from datetime import datetime
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -26,6 +26,10 @@ def create_app():
         return jsonify({'status': 'healthy', 'service': 'Browser Automation Service'})
     
     # Home
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
+
     @app.route('/')
     def index():
         return jsonify({
