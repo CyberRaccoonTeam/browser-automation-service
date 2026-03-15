@@ -1,9 +1,27 @@
+# Environment
+.env
+.env.*
+*.env
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
 __pycache__/
 *.pyc
 *.pyo
-.env
-tasks.db
-*.log
 venv/
 .venv/
+
+# Secrets
+credentials.json
+config.json
+*.key
+
+# Logs
+*.log
+
+# Screenshots
 screenshots/
