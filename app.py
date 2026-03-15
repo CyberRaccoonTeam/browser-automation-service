@@ -25,11 +25,12 @@ def create_app():
     def health():
         return jsonify({'status': 'healthy', 'service': 'Browser Automation Service'})
     
+    # Landing page
+    @app.route('/landing')
+    def landing():
+        return render_template('landing.html')
+    
     # Home
-@app.route('/landing')
-def landing():
-    return render_template('landing.html')
-
     @app.route('/')
     def index():
         return jsonify({
